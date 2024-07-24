@@ -4,6 +4,7 @@ import { Input, Select, notification } from "antd";
 import React, { useState } from "react";
 
 import Image from "next/image";
+import Link from "next/link";
 
 interface Link {
 	id: number;
@@ -51,7 +52,9 @@ const DdesktopAddLinks = () => {
 							/>
 							Links
 						</button>
-						<button className="flex gap-2 items-center justify-center text-[#737373] rounded-lg h-[46px] w-[187px] hover:text-[#633CFF]">
+						<Link
+							href="/updateuser"
+							className="flex gap-2 items-center justify-center text-[#737373] rounded-lg h-[46px] w-[187px] hover:text-[#633CFF]">
 							<Image
 								src="/assests/icons/user-circle.svg"
 								alt="user-circle"
@@ -59,7 +62,7 @@ const DdesktopAddLinks = () => {
 								height={20}
 							/>{" "}
 							Profile Details
-						</button>
+						</Link>
 					</div>
 					<button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[46px] w-[114px] border border-[#633CFF]">
 						Preview
