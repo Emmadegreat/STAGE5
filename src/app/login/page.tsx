@@ -39,7 +39,7 @@ const Login =()=>{
 
                 await signInWithEmailAndPassword(auth, email, password);
                 toast.success("Welcome, you are now signed in");
-                window.location.href = "/desktop-add-link";
+                window.location.href = "/sharelinks";
             }
 
 

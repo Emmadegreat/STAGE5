@@ -36,7 +36,7 @@ const CustomOptionLabel: React.FC<CustomOptionLabelProps> = ({
     </span>
 );
 
-const DdesktopAddLinks = () => {
+const ShareableLinks = () => {
   const [links, setLinks] = useState<Link[]>([]);
 
   const addNewLink = () => {
@@ -278,4 +278,4 @@ const DdesktopAddLinks = () => {
   );
 };
 
-export default DdesktopAddLinks;
+export default ShareableLinks;
