@@ -4,10 +4,10 @@ import Image, { StaticImageData } from "next/image";
 import { Input, Select, notification } from "antd";
 import React, { useState } from "react";
 
-import GitHubIcon from "../../../public/assests/icons/link.svg";
+import GitHubIcon from "../../../public/assests/icons/youtube.svg";
 import Link from "next/link";
-import LinkedInIcon from "../../../public/assests/icons/link.svg";
-import YouTubeIcon from "../../../public/assests/icons/link.svg";
+import LinkedInIcon from "../../../public/assests/icons/github.svg";
+import YouTubeIcon from "../../../public/assests/icons/linkedin.svg";
 
 interface Link {
   id: number;
@@ -94,8 +94,8 @@ const ShareableLinks = () => {
           </button>
         </nav>
 
-        <div className="flex items-center gap-10 w-[100%]">
-          <div className="flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
+        <div className="flex md:flex-row flex-col items-center gap-10 w-[100%]">
+          <div className="md:order-1 order-2 flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
             <div className="flex justify-center h-[631px]">
               <Image
                 src="/assests/icons/frame1.svg"
@@ -150,14 +150,15 @@ const ShareableLinks = () => {
               </div>
             </div>
           </div>
-          <div className="w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
+
+          <div className="md:order-2 order-1 w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
             <div className="h-[100%] p-[40px] flex flex-col gap-8 overflow-y-scroll">
               <div className="flex flex-col">
                 <h1 className="text-[#333333] leading-[48px] text-[32px] font-[700]">
                   Customize your links
                 </h1>
                 <p className="text-[#737373] text-[16px] leading-[24px] font-[400]">
-                  Add/edit/remove links below and then share all your profiles
+                  You can Add, edit, and remove links below and then share all your profiles
                   with the world!
                 </p>
               </div>
