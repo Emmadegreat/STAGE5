@@ -44,12 +44,15 @@ const ProfileDetails = () => {
 
   const renderProfileImage = (image: string | ArrayBuffer | null) => {
     if (typeof image === 'string') {
-      return <img src={image} alt="Profile" className="w-full h-full object-cover rounded-full" />;
+      return <Image
+      src={image}
+      alt="Profile"
+      className="w-full h-full object-cover rounded-full" />;
     } else if (image instanceof ArrayBuffer) {
-      // Convert ArrayBuffer to base64 string
+
       const uint8Array = new Uint8Array(image);
       const base64String = btoa(String.fromCharCode(...Array.from(uint8Array)));
-      return <img src={`data:image/png;base64,${base64String}`} alt="Profile" className="w-full h-full object-cover rounded-full" />;
+      return <Image src={`data:image/png;base64,${base64String}`} alt="Profile" className="w-full h-full object-cover rounded-full" />;
     }
     return '';
   };

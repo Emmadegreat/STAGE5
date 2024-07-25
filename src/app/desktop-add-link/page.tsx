@@ -53,7 +53,7 @@ const DdesktopAddLinks = () => {
 							Links
 						</button>
 						<Link
-							href="/updateuser"
+							href="/profile"
 							className="flex gap-2 items-center justify-center text-[#737373] rounded-lg h-[46px] w-[187px] hover:text-[#633CFF]">
 							<Image
 								src="/assests/icons/user-circle.svg"

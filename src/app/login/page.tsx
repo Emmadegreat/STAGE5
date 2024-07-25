@@ -27,14 +27,6 @@ const Login =()=>{
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
 
-        // // Reset error state
-        // setIsError(false);
-
-        // // Validate input
-        // const emailError = email.trim() === '';
-        // const passwordError = password.trim() === '';
-
-
 
         try {
 
