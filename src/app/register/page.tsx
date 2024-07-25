@@ -52,7 +52,7 @@ const Register:FC=()=>{
 
         toast.success("Successfully registered");
         setTimeout(() => {
-          window.location.href = "/login";
+          window.location.href = "/login1";
         }, 1000);
       }
 
