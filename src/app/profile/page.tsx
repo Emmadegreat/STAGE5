@@ -92,7 +92,7 @@ const ProfileDetails = () => {
       </nav>
 
       <div className="flex items-center gap-10 w-[100%]">
-        <div className="flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
+        <div className="hidden md:flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
           <div className="flex justify-center h-[631px]">
             <Image
               src="/assests/icons/frame1.svg"
@@ -129,7 +129,8 @@ const ProfileDetails = () => {
             </div>
           </div>
         </div>
-        <div className="w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
+
+        <div className="md:order-2 order-1 w-[100%] md:w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
           <div className="h-[739px] flex flex-col gap-8">
             <div className="flex flex-col px-[40px] py-3 gap-5">
               <h1 className="text-[#333333] leading-[48px] text-[32px] font-[700]">
@@ -147,19 +148,20 @@ const ProfileDetails = () => {
                     <div className="flex items-center gap-2 w-[60%] relative">
                       <label htmlFor="profileImage" className="cursor-pointer flex flex-col items-center justify-center w-[65%] h-[193px] bg-[#EFEBFF] rounded-xl relative overflow-hidden">
                         {profileImage && (
-                          <img src={typeof profileImage === 'string' ? profileImage : ''} alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
+                          <Image src={typeof profileImage === 'string' ? profileImage : ''} alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
                         )}
                         <div className={`absolute inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-[#EFEBFF] text-white ${profileImage ? '' : 'hidden'}`}>
-                          <img src="images/phimage.svg" alt="Upload Icon" width={40} height={40} />
+                          <Image src="images/phimage.svg" alt="Upload Icon" width={40} height={40} />
                           <p className="text-[14px]">Change Image</p>
                         </div>
                         {!profileImage && (
                           <div className="flex flex-col items-center justify-center">
-                            <img src="images/pimage.svg" alt="Upload Icon" width={40} height={40} />
+                            <Image src="images/pimage.svg" alt="Upload Icon" width={40} height={40} />
                             <p className="text-[14px]">+ Upload Image</p>
                           </div>
                         )}
                       </label>
+
                       <input
                         type="file"
                         accept="image/*"
