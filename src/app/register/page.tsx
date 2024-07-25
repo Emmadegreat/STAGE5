@@ -24,28 +24,38 @@ const Register:FC=()=>{
   const [isError, setIsError] = useState<boolean>(false)
   const [file, setFile] = useState<File | null>(null);
 
-  const handleRegister = async (e: FormEvent) =>{
+  const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
 
-    await createUserWithEmailAndPassword(auth, email, password1);
-        const user = auth.currentUser;
-        console.log(user);
+    try {
 
-        if (user) {
-          await setDoc(doc(db, 'users', user.uid), {
-            email: user.email,
-            firstname: name,
-            lastname: name,
-          });
+      await createUserWithEmailAndPassword(auth, email, password1);
+      const user = auth.currentUser;
+      console.log(user);
 
-        }
+      if (user) {
+        await setDoc(doc(db, 'users', user.uid), {
+          email: user.email,
+          firstname: name,
+          lastname: name,
+        });
 
-        toast.success("Successfully registered");
-        setTimeout(() => {
-          window.location.href = "/login1";
-        }, 1000);
       }
+
+      toast.success("Successfully registered");
+      setTimeout(() => {
+        window.location.href = "/login";
+      }, 1000);
+
+
+    } catch (error) {
+      console.log('error: ', error);
+
+      toast.error('user already exist')
+    }
+
+  }
 
 
 
