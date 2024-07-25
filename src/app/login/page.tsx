@@ -27,41 +27,36 @@ const Login =()=>{
     const handleLogin = async (e: FormEvent) => {
         e.preventDefault();
 
-        // Reset error state
-        setIsError(false);
+        // // Reset error state
+        // setIsError(false);
 
-        // Validate input
-        const emailError = email.trim() === '';
-        const passwordError = password.trim() === '';
+        // // Validate input
+        // const emailError = email.trim() === '';
+        // const passwordError = password.trim() === '';
 
-        if (emailError || passwordError) {
-            setIsError(true);
-            toast.error("Please fill in all fields.");
-            return;
-        }
+
 
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            toast.success("Welcome, you are now signed in");
-            window.location.href = "/desktop-add-link";
+
+            if (!email || !password) {
+                setIsError(true);
+                toast.error("Please fill in all fields.");
+                return;
+
+            } else {
+
+                await signInWithEmailAndPassword(auth, email, password);
+                toast.success("Welcome, you are now signed in");
+                window.location.href = "/desktop-add-link";
+            }
+
 
         } catch (error) {
 
             if (error instanceof FirebaseError) {
+                console.log(error.message);
 
-                if (error.code === 'auth/user-not-found') {
-                    toast.error("No user found with this email address.");
-
-                } else if (error.code === 'auth/wrong-password') {
-                    toast.error("Incorrect password. Please try again.");
-
-                } else {
-                    toast.error("Login failed. Please check your internet connection and try again.");
-                }
-
-            }else {
-                console.error("Login error:", error);
-                setIsError(true);
+                toast.error('User not found')
             }
 
         }
