@@ -27,7 +27,29 @@ const Register:FC=()=>{
   const handleRegister = async (e: FormEvent) =>{
     e.preventDefault();
 
-    try {
+
+    await createUserWithEmailAndPassword(auth, email, password1);
+        const user = auth.currentUser;
+        console.log(user);
+
+        if (user) {
+          await setDoc(doc(db, 'users', user.uid), {
+            email: user.email,
+            firstname: name,
+            lastname: name,
+          });
+
+        }
+
+        toast.success("Successfully registered");
+        setTimeout(() => {
+          window.location.href = "/login1";
+        }, 1000);
+      }
+
+
+
+  {/*try {
       const usersRef = collection(db, "users");
       const q = query(usersRef, where("email", "==", email));
       const querySnapshot = await getDocs(q);
@@ -60,7 +82,7 @@ const Register:FC=()=>{
         toast.error("Ensure all fields are correctly filled");
         console.log(error);
       }
-    }
+    }*/}
 
 
   return (
