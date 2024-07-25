@@ -43,7 +43,7 @@ const UpdateUser = () => {
         const currentUser = auth.currentUser;
 
         if (currentUser) {
-            const userRef = doc(db, 'Users', currentUser.uid);
+            const userRef = doc(db, 'users', currentUser.uid);
 
             try {
                 const updates: any = {};
@@ -70,7 +70,7 @@ const UpdateUser = () => {
     };
 
     if (!user) {
-        return <p>Loading...</p>; // Or a loading spinner
+        return <p>Loading...</p>;
     }
 
     return (

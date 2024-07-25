@@ -1,15 +1,24 @@
 "use client"
 
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { auth, db } from '../../../firebase';
+import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore"; //
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
 import Image from "next/image";
+import {toast} from 'react-toastify'
 
 const ProfileDetails = () => {
-  const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(null);
+
+  //const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(null);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [profileImage, setProfileImage] = useState<File | null>(null);
+  const [user, setUser] = useState<any>(null);
+
+
   const [submittedData, setSubmittedData] = useState({
     profileImage: null as string | ArrayBuffer | null,
     firstName: '',
@@ -17,30 +26,97 @@ const ProfileDetails = () => {
     email: ''
   });
 
-  const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
+  //   const file = e.target.files?.[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setProfileImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    setSubmittedData({ profileImage, firstName, lastName, email });
-    console.log({ firstName, lastName, email, profileImage });
+  // const handleSubmit = (e: FormEvent) => {
+  //   e.preventDefault();
+  //   setSubmittedData({ profileImage, firstName, lastName, email });
+  //   console.log({ firstName, lastName, email, profileImage });
 
-    setProfileImage(null);
-    setFirstName('');
-    setLastName('');
-    setEmail('');
+  //   setProfileImage(null);
+  //   setFirstName('');
+  //   setLastName('');
+  //   setEmail('');
 
-    // Display success message
-    setMessage('Your changes have been successfully saved!');
-  };
+  //   // Display success message
+  //   setMessage('Your changes have been successfully saved!');
+  // };
+
+
+
+
+
+
+  const storage = getStorage();
+    useEffect(() => {
+        const fetchUserData = async () => {
+        const currentUser = auth.currentUser;
+        if (currentUser) {
+            const userRef = doc(db, 'users', currentUser.uid);
+            const userDoc = await getDoc(userRef);
+            if (userDoc.exists()) {
+                setUser(userDoc.data());
+                setFirstName(userDoc.data().firstname);
+                setLastName(userDoc.data().lastname);
+                setEmail(userDoc.data().email);
+            }
+        }
+    };
+        fetchUserData();
+    }, []);
+
+    const handleProfileImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files[0]) {
+        setProfileImage(e.target.files[0]);
+      }
+    };
+
+    const handleUpdate = async (e: React.FormEvent) => {
+      e.preventDefault();
+
+        const currentUser = auth.currentUser;
+
+        if (currentUser) {
+            const userRef = doc(db, 'users', currentUser.uid);
+
+            try {
+                const updates: any = {};
+                if (firstName) updates.firstname = firstName;
+                if (lastName) updates.lastname = lastName;
+
+                await updateDoc(userRef, updates);
+
+
+                if (profileImage) {
+                // Upload the image to Firebase Storage and get the download URL
+                    const storageRef = ref(storage, `profileImages/${currentUser.uid}`);
+                    await uploadBytes(storageRef, profileImage);
+                    const downloadURL = await getDownloadURL(storageRef);
+                    await updateDoc(userRef, { profileImage: downloadURL });
+                }
+
+                toast.success("Profile updated successfully");
+            } catch (error) {
+                toast.error("Failed to update profile");
+                console.error(error);
+            }
+        }
+    };
+
+    // if (!user) {
+    //     return <p>Loading...</p>; // Or a loading spinner
+    // }
+
+
 
   const renderProfileImage = (image: string | ArrayBuffer | null) => {
     if (typeof image === 'string') {
@@ -56,6 +132,8 @@ const ProfileDetails = () => {
     }
     return '';
   };
+
+
 
   return (
     <div className="flex flex-col gap-9 p-[24px]">
@@ -141,7 +219,8 @@ const ProfileDetails = () => {
               </p>
             </div>
             <div className="">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-10">
+
+              <form onSubmit={handleUpdate} className="flex flex-col gap-10">
                 <div className='flex flex-col p-[40px] gap-10'>
                   <div className="flex items-center p-5  bg-[#FAFAFA] rounded-xl w-full h-auto">
                     <p className="text-[#737373] text-[16px] font-normal w-[40%]">Profile picture</p>
@@ -165,7 +244,7 @@ const ProfileDetails = () => {
                       <input
                         type="file"
                         accept="image/*"
-                        onChange={handleImageUpload}
+                        onChange={handleProfileImage}
                         className="hidden"
                         id="profileImage"
                       />
@@ -210,7 +289,8 @@ const ProfileDetails = () => {
                 </div>
 
                 <div className="h-[95px] flex justify-end items-center font-[600] text-[16px] leading-[24px] text-[#FFFFFF] px-[40px] border-t-[2px] border-t-[#ececec] relative overflow-hidden">
-                   {message && <span className="text-[#FAFAFA] bg-[#333333] h-[46px] px-[24px] rounded-xl flex items-center gap-1 text-[16px] relative right-44"><img src="images/floppy.svg" alt="" /> {message}</span>}
+                  {message && <span className="text-[#FAFAFA] bg-[#333333] h-[46px] px-[24px] rounded-xl flex items-center gap-1 text-[16px] relative right-44">
+                    <Image src="images/floppy.svg" alt="" /> {message}</span>}
                   <button type="submit" className="bg-[#633CFF] rounded-lg h-[46px] w-[91px]">
                     Save
                   </button>
