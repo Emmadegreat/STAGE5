@@ -41,63 +41,26 @@ const Register:FC=()=>{
           lastname: name,
         });
 
-      }
+        toast.success("Successfully registered");
+        setTimeout(() => {
+          window.location.href = "/login";
+        }, 1000);
 
-      toast.success("Successfully registered");
-      setTimeout(() => {
-        window.location.href = "/login";
-      }, 1000);
+      }
 
 
     } catch (error) {
       console.log('error: ', error);
 
-      toast.error('user already exist')
+      toast.error('Check your details and ensure the form is correctly filled');
     }
 
   }
 
 
-
-  {/*try {
-      const usersRef = collection(db, "users");
-      const q = query(usersRef, where("email", "==", email));
-      const querySnapshot = await getDocs(q);
-
-      if (!querySnapshot.empty) {
-        toast.error("Email already exists");
-
-      } else {
-
-        await createUserWithEmailAndPassword(auth, email, password1);
-        const user = auth.currentUser;
-        console.log(user);
-
-        if (user) {
-          await setDoc(doc(db, 'users', user.uid), {
-            email: user.email,
-            firstname: name,
-            lastname: name,
-          });
-
-        }
-
-        toast.success("Successfully registered");
-        setTimeout(() => {
-          window.location.href = "/login1";
-        }, 1000);
-      }
-
-    } catch (error) {
-        toast.error("Ensure all fields are correctly filled");
-        console.log(error);
-      }
-    }*/}
-
-
   return (
     <div className='bg-[#fafafa] flex items-center flex-col m-auto'>
-      <div className='absolute top-[50px] flex flex-col'>
+      <div className='absolute top-[50px] flex flex-col w-full max-w-[448px]'>
         <div className='flex flex-center items-center m-auto pb-4'>
           <svg className='w-[30px] h-[30px]'
             width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -105,7 +68,7 @@ const Register:FC=()=>{
           </svg>
           <h1 className='font-[700] ml-2 text-[2.2rem] text-[#333333]'>devlinks</h1>
         </div>
-        <section className='wrapper shadow-lg text-[1.4rem] flex flex-col bg-white rounded-lg px-8 py-8 mb-8'>
+        <section className='w-full shadow-lg text-[1.4rem] flex flex-col bg-white rounded-lg px-8 py-4 mb-8'>
 
           <h1 className='font-[700] text-start text-[1.5rem]'>Create account</h1>
           <p className='text-[#737373] text-[14px] my-2'>Let’s get you started sharing your links!</p>
