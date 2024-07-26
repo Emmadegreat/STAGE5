@@ -4,11 +4,8 @@ import React, { FC, FormEvent, useState } from 'react'
 import { addDoc, collection, doc, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { auth, db } from '../../../firebase'
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-
-import Image from 'next/image'
 import Link from 'next/link'
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import logo from '../../../public/images/logo.png'
 import {toast} from 'react-toastify'
 
 const Register:FC=()=>{
@@ -16,19 +13,22 @@ const Register:FC=()=>{
   const [email, setEmail] = useState<string>("");
   const [password1, setPassword1] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
-  const [emailError, setEmailError] = useState<boolean>(false);
-  const [password1Error, setPassword1Error] = useState<boolean>(false);
-  const [password2Error, setPassword2Error] = useState<boolean>(false);
-  const [passwordMatchError, setPasswordMatchError] = useState<boolean>(false);
-  const [isEmailFocused, setIsEmailFocused] = useState<boolean>(false)
-  const [isError, setIsError] = useState<boolean>(false)
-  const [file, setFile] = useState<File | null>(null);
+  const [emailFocused, setEmailFocused] = useState<boolean>(false);
+  const [password1Focused, setPassword1Focused] = useState<boolean>(false);
+  const [password2Focused, setPassword2Focused] = useState<boolean>(false);
+  const [isError, setIsError] = useState<boolean>(false);
+
 
   const handleRegister = async (e: FormEvent) => {
     e.preventDefault();
 
 
     try {
+
+      if (!email ||!password1) {
+        setIsError(true);
+        return;
+      }
 
       await createUserWithEmailAndPassword(auth, email, password1);
       const user = auth.currentUser;
@@ -60,7 +60,7 @@ const Register:FC=()=>{
 
   return (
     <div className='bg-[#fafafa] flex items-center flex-col m-auto'>
-      <div className='absolute top-[50px] flex flex-col w-full max-w-[448px]'>
+      <div className='absolute top-[50px] flex flex-col w-full max-w-[448px] px-4'>
         <div className='flex flex-center items-center m-auto pb-4'>
           <svg className='w-[30px] h-[30px]'
             width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -77,7 +77,7 @@ const Register:FC=()=>{
             <form onSubmit={handleRegister} className='mt-6 w-full'>
 
               <div className='flex flex-col mb-2'>
-                <span className='text-[14px] text-[#737373]'>Email address</span>
+                <label className={`text-[14px] ${isError ? 'text-red-600' : ''}`}>Email address</label>
                 <div  className='relative'>
 
                   <svg
@@ -86,26 +86,28 @@ const Register:FC=()=>{
                     <path d="M14 3H2C1.86739 3 1.74021 3.05268 1.64645 3.14645C1.55268 3.24021 1.5 3.36739 1.5 3.5V12C1.5 12.2652 1.60536 12.5196 1.79289 12.7071C1.98043 12.8946 2.23478 13 2.5 13H13.5C13.7652 13 14.0196 12.8946 14.2071 12.7071C14.3946 12.5196 14.5 12.2652 14.5 12V3.5C14.5 3.36739 14.4473 3.24021 14.3536 3.14645C14.2598 3.05268 14.1326 3 14 3ZM13.5 12H2.5V4.63688L7.66187 9.36875C7.75412 9.45343 7.87478 9.50041 8 9.50041C8.12522 9.50041 8.24588 9.45343 8.33813 9.36875L13.5 4.63688V12Z" fill="#737373"/>
                   </svg>
 
-                  {emailError && (
+                  {isError && (
                     <span className='absolute right-[1.2rem] top-[14px] text-[#FF3939] text-[0.8rem]'>Can&#39;t be empty</span>
                   )}
 
                   <input type="email"
                     placeholder='e.g. alex@email.com'
                     value={email}
-                    onFocus={() => setIsEmailFocused(true)}
+                    onFocus={() => setEmailFocused(true)}
+                    onBlur={() => setEmailFocused(false)}
                     onChange={(e)=>setEmail(e.target.value)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
-                      py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 ${
-                        emailError ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
-                    }`}
+                      py-1 mb-4 rounded-lg border-[1px] outline-none pr-4
+                      ${emailFocused ? 'shadow-custom border-[#633CFF] ring-opacity-20' : 'bg-transparent border-[#D9D9D9]'}
+                      ${isError ? 'border-red-600' : ''}
+                    `}
                   />
                 </div>
               </div>
 
               <div className='flex flex-col'>
 
-                <span className='text-[13px] text-[#737373]'>Create Password</span>
+                <span className={`text-[14px] ${isError ? 'text-red-600' : ''}`}>Create Password</span>
 
                 <div className='relative'>
 
@@ -115,18 +117,21 @@ const Register:FC=()=>{
                     <path d="M11 5H9V3.5C9 2.70435 8.68393 1.94129 8.12132 1.37868C7.55871 0.81607 6.79565 0.5 6 0.5C5.20435 0.5 4.44129 0.81607 3.87868 1.37868C3.31607 1.94129 3 2.70435 3 3.5V5H1C0.734784 5 0.48043 5.10536 0.292893 5.29289C0.105357 5.48043 0 5.73478 0 6V13C0 13.2652 0.105357 13.5196 0.292893 13.7071C0.48043 13.8946 0.734784 14 1 14H11C11.2652 14 11.5196 13.8946 11.7071 13.7071C11.8946 13.5196 12 13.2652 12 13V6C12 5.73478 11.8946 5.48043 11.7071 5.29289C11.5196 5.10536 11.2652 5 11 5ZM6.5 9.91438V11.5C6.5 11.6326 6.44732 11.7598 6.35355 11.8536C6.25979 11.9473 6.13261 12 6 12C5.86739 12 5.74021 11.9473 5.64645 11.8536C5.55268 11.7598 5.5 11.6326 5.5 11.5V9.91438C5.16639 9.79643 4.88522 9.56434 4.70618 9.25914C4.52715 8.95393 4.46177 8.59526 4.5216 8.24651C4.58144 7.89776 4.76264 7.58139 5.03317 7.35332C5.3037 7.12525 5.64616 7.00016 6 7.00016C6.35384 7.00016 6.6963 7.12525 6.96683 7.35332C7.23736 7.58139 7.41856 7.89776 7.4784 8.24651C7.53823 8.59526 7.47285 8.95393 7.29382 9.25914C7.11478 9.56434 6.83361 9.79643 6.5 9.91438ZM8 5H4V3.5C4 2.96957 4.21071 2.46086 4.58579 2.08579C4.96086 1.71071 5.46957 1.5 6 1.5C6.53043 1.5 7.03914 1.71071 7.41421 2.08579C7.78929 2.46086 8 2.96957 8 3.5V5Z" fill="#737373"/>
                   </svg>
 
-                  {password1Error && (
+                  {isError && (
                     <span className='absolute right-[1.2rem] top-[14px] text-[#FF3939] text-[0.8rem]'>Please check again</span>
                   )}
 
                   <input type="password"
                     placeholder='At least 8 characters'
                     value={password1}
+                    onFocus={() => setPassword1Focused(true)}
+                    onBlur={() => setPassword1Focused(false)}
                     onChange={(e)=>setPassword1(e.target.value)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
-                      py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 ${
-                        password1Error ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
-                    }`}
+                      py-1 mb-4 rounded-lg border-[1px] outline-none pr-4
+                      ${password1Focused ? 'shadow-custom border-[#633CFF] ring-opacity-20' : 'bg-transparent border-[#D9D9D9]'}
+                      ${isError ? 'border-red-600' : ''}
+                    `}
                   />
                 </div>
               </div>
@@ -141,16 +146,18 @@ const Register:FC=()=>{
                     <path d="M11 5H9V3.5C9 2.70435 8.68393 1.94129 8.12132 1.37868C7.55871 0.81607 6.79565 0.5 6 0.5C5.20435 0.5 4.44129 0.81607 3.87868 1.37868C3.31607 1.94129 3 2.70435 3 3.5V5H1C0.734784 5 0.48043 5.10536 0.292893 5.29289C0.105357 5.48043 0 5.73478 0 6V13C0 13.2652 0.105357 13.5196 0.292893 13.7071C0.48043 13.8946 0.734784 14 1 14H11C11.2652 14 11.5196 13.8946 11.7071 13.7071C11.8946 13.5196 12 13.2652 12 13V6C12 5.73478 11.8946 5.48043 11.7071 5.29289C11.5196 5.10536 11.2652 5 11 5ZM6.5 9.91438V11.5C6.5 11.6326 6.44732 11.7598 6.35355 11.8536C6.25979 11.9473 6.13261 12 6 12C5.86739 12 5.74021 11.9473 5.64645 11.8536C5.55268 11.7598 5.5 11.6326 5.5 11.5V9.91438C5.16639 9.79643 4.88522 9.56434 4.70618 9.25914C4.52715 8.95393 4.46177 8.59526 4.5216 8.24651C4.58144 7.89776 4.76264 7.58139 5.03317 7.35332C5.3037 7.12525 5.64616 7.00016 6 7.00016C6.35384 7.00016 6.6963 7.12525 6.96683 7.35332C7.23736 7.58139 7.41856 7.89776 7.4784 8.24651C7.53823 8.59526 7.47285 8.95393 7.29382 9.25914C7.11478 9.56434 6.83361 9.79643 6.5 9.91438ZM8 5H4V3.5C4 2.96957 4.21071 2.46086 4.58579 2.08579C4.96086 1.71071 5.46957 1.5 6 1.5C6.53043 1.5 7.03914 1.71071 7.41421 2.08579C7.78929 2.46086 8 2.96957 8 3.5V5Z" fill="#737373"/>
                   </svg>
 
-                   {password2Error && passwordMatchError && (<span className='absolute right-[1.2rem] top-[14px] text-[#FF3939] text-[0.8rem]'></span>)}
+                  {password2Focused && (<span className='absolute right-[1.2rem] top-[14px] text-[#FF3939] text-[0.8rem]'></span>)}
 
                   <input type="password"
                     placeholder='At least 8 characters'
                     value={password2}
+                    onFocus={() => setPassword2Focused(true)}
+                    onBlur={() => setPassword2Focused(false)}
                     onChange={(e)=>setPassword2(e.target.value)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
-                      py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 ${
-                      password2Error || passwordMatchError ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
-                    }`}
+                      py-1 mb-4 rounded-lg border-[1px] outline-none pr-4
+                      ${password2Focused ? 'shadow-custom border-[#633CFF] ring-opacity-20' : 'bg-transparent border-[#D9D9D9]'}
+                    `}
                   />
                 </div>
               </div>
