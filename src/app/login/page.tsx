@@ -201,11 +201,11 @@ const Login =()=>{
                         </div>
                     </form>
                     <div className="text-center text-sm text-gray-600">
-                        <p>
-                            Don’t have an account?{""}
+                        <p className="flex sm:flex-row flex-col">
+                            <span>Don’t have an account?{""}</span>
                             <Link
                                 href="/register"
-                                className="font-medium text-indigo-600 hover:text-indigo-500"
+                                className="sm:mt-0 mt-2 font-medium text-indigo-600 hover:text-indigo-500"
                             >
                                 Create account
                             </Link>
@@ -213,7 +213,6 @@ const Login =()=>{
                     </div>
                 </div>
             </div>
-            {/* <UpdateUser /> */}
         </div>
     );
 
