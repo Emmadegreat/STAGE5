@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-         <link rel="icon" href="../../public/assests/images/logo.png" />
+         <link rel="icon" href="https://res.cloudinary.com/dbnxbly1r/image/upload/v1721974423/general/logo_r6toq2.svg" />
      </head>
       <body className={inter.className}>
         {children}
@@ -29,3 +29,4 @@ export default function RootLayout({
     </html>
   );
 }
+
