@@ -146,7 +146,7 @@ const Login =()=>{
 
                                 />
                                 <span className="absolute inset-y-0 top-6 flex items-center pl-3">
-                                    <Image src="/images/mail.png" alt="Email Icon" width={16} height={16} />
+                                    <Image src="/public/assests/images/mail.png" alt="Email Icon" width={16} height={16} />
                                 </span>
                                 {isError && (
                                     <span className="absolute inset-y-0 right-0 top-6 flex items-center pr-3 text-[#FF3939] text-[12px]">
@@ -176,7 +176,7 @@ const Login =()=>{
                                         } ${isError ? 'border-red-600' : ''}`}
                                 />
                                 <span className="absolute inset-y-0 left-0 top-6 flex items-center pl-3">
-                                    <Image src="/images/keylock.png" alt="Password Icon" width={16} height={16} />
+                                    <Image src="/public/assests/images/keylock.png" alt="Password Icon" width={16} height={16} />
                                 </span>
                                 {isError && (
                                     <span className="absolute inset-y-0 right-0 top-6 flex items-center pr-3 text-[#FF3939] text-[12px]">
