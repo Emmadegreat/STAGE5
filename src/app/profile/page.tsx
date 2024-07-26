@@ -4,7 +4,7 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { auth, db } from '../../../firebase';
 import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore"; //
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-
+import Link from 'next/link';
 import Image from "next/image";
 import {toast} from 'react-toastify'
 
@@ -25,34 +25,6 @@ const ProfileDetails = () => {
     lastName: '',
     email: ''
   });
-
-  // const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
-  //   const file = e.target.files?.[0];
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.onloadend = () => {
-  //       setProfileImage(reader.result);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // };
-
-  // const handleSubmit = (e: FormEvent) => {
-  //   e.preventDefault();
-  //   setSubmittedData({ profileImage, firstName, lastName, email });
-  //   console.log({ firstName, lastName, email, profileImage });
-
-  //   setProfileImage(null);
-  //   setFirstName('');
-  //   setLastName('');
-  //   setEmail('');
-
-  //   // Display success message
-  //   setMessage('Your changes have been successfully saved!');
-  // };
-
-
-
 
 
 
@@ -112,10 +84,6 @@ const ProfileDetails = () => {
         }
     };
 
-    // if (!user) {
-    //     return <p>Loading...</p>; // Or a loading spinner
-    // }
-
 
 
   const renderProfileImage = (image: string | ArrayBuffer | null) => {
@@ -145,18 +113,18 @@ const ProfileDetails = () => {
           height={40}
         />
         <div className="flex items-center">
-          <button className="rounded-lg h-[46px] w-[122px] flex gap-2 items-center justify-center text-[#737373]">
+          <Link href="/sharelinks" className="rounded-lg h-[46px] w-[122px] flex gap-2 items-center justify-center text-[#737373]">
             <Image
-              src="images/linkicon.svg"
+              src="/assests/icons/linkicon.svg"
               alt="link-icon"
               width={20}
               height={20}
             />
             Links
-          </button>
+          </Link>
           <button className="flex gap-2 items-center justify-center rounded-lg h-[46px] bg-[#EFEBFF] text-[#633CFF] w-[187px] hover:text-[#633CFF]">
             <Image
-              src="/images/user.svg"
+              src="/assests/images/user.svg"
               alt="user-circle"
               width={20}
               height={20}
@@ -230,7 +198,7 @@ const ProfileDetails = () => {
                           <Image src={typeof profileImage === 'string' ? profileImage : ''} alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
                         )}
                         <div className={`absolute inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-[#EFEBFF] text-white ${profileImage ? '' : 'hidden'}`}>
-                          <Image src="images/phimage.svg" alt="Upload Icon" width={40} height={40} />
+                          <Image src="/assests/images/phimage.svg" alt="Upload Icon" width={40} height={40} />
                           <p className="text-[14px]">Change Image</p>
                         </div>
                         {!profileImage && (

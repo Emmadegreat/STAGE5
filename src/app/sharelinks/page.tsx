@@ -122,7 +122,7 @@ const ShareableLinks = () => {
                   {links.map((link) => (
                     <div
                       key={link.id}
-                      className={`bg-[#EEEEEE] rounded-lg h-[40px] w-[237px] flex items-center justify-between px-[8px] text-nowrap overflow-hidde
+                      className={`bg-[#EEEEEE] rounded-lg h-[40px] w-[237px] flex items-center justify-between px-[8px] text-nowrap overflow-hidden
                         ${
                           link.platform === "GitHub"
                             ? "bg-[#000000] text-[#FFFFFF]"
