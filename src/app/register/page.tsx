@@ -105,15 +105,15 @@ const Register:FC=()=>{
           </svg>
           <h1 className='font-[700] ml-2 text-[2.2rem] text-[#333333]'>devlinks</h1>
         </div>
-        <section className='text-[1.4rem] flex flex-col bg-white rounded-lg px-8 py-8 mb-8'>
+        <section className='wrapper shadow-lg text-[1.4rem] flex flex-col bg-white rounded-lg px-8 py-8 mb-8'>
 
           <h1 className='font-[700] text-start text-[1.5rem]'>Create account</h1>
           <p className='text-[#737373] text-[14px] my-2'>Let’s get you started sharing your links!</p>
 
-          <div className='w-[360px] flex flex-col'>
-            <form onSubmit={handleRegister} className='mt-6'>
+          <div className='w-full flex flex-col'>
+            <form onSubmit={handleRegister} className='mt-6 w-full'>
 
-              <div className='flex flex-col'>
+              <div className='flex flex-col mb-2'>
                 <span className='text-[14px] text-[#737373]'>Email address</span>
                 <div  className='relative'>
 
@@ -197,11 +197,15 @@ const Register:FC=()=>{
               <button
                 type="submit"
                 className='p-2 mt-4 mb-3 w-full h-[44px] bg-[#633CFF] text-white text-[16px] font-[600] rounded-lg'
-              >Create new account
+              >
+                Create new account
               </button>
 
               <div className='text-[16px] font-[400] text-center my-4 text-[#737373]'>
-                Already have an account? <Link href="/login" className='text-[#633CFF]'>Login</Link>
+                <p className="flex sm:flex-row flex-col">
+                  <span>Already have an account?</span>
+                  <Link href="/login" className='text-[#633CFF] sm:mt-0 mt-2'>Login</Link>
+                </p>
               </div>
             </form>
           </div>
