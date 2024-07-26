@@ -13,7 +13,7 @@ const Register:FC=()=>{
   const [email, setEmail] = useState<string>("");
   const [password1, setPassword1] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
-  const [emailFocused, setEmailFocused] = useState<boolean>(false);
+  const [emailError, setEmailError] = useState<boolean>(false);
   const [password1Focused, setPassword1Focused] = useState<boolean>(false);
   const [password2Focused, setPassword2Focused] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -93,12 +93,12 @@ const Register:FC=()=>{
                   <input type="email"
                     placeholder='e.g. alex@email.com'
                     value={email}
-                    onFocus={() => setEmailFocused(true)}
-                    onBlur={() => setEmailFocused(false)}
+                    onFocus={() => setEmailError(true)}
+                    onBlur={() => setEmailError(false)}
                     onChange={(e)=>setEmail(e.target.value)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
                       py-1 mb-4 rounded-lg border-[1px] outline-none pr-4
-                      ${emailFocused ? 'shadow-custom border-[#633CFF] ring-opacity-20' : 'bg-transparent border-[#D9D9D9]'}
+                      ${emailError ? 'shadow-custom border-[#633CFF] ring-opacity-20' : 'bg-transparent border-[#D9D9D9]'}
                       ${isError ? 'border-red-600' : ''}
                     `}
                   />
@@ -174,7 +174,7 @@ const Register:FC=()=>{
               <div className='text-[16px] font-[400] text-center my-4 text-[#737373]'>
                 <p className="flex sm:flex-row flex-col">
                   <span>Already have an account?</span>
-                  <Link href="/login" className='text-[#633CFF] sm:mt-0 mt-2'>Login</Link>
+                  <Link href="/login" className='text-[#633CFF] sm:mt-0 mt-2 px-2'>Login</Link>
                 </p>
               </div>
             </form>

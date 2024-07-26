@@ -201,11 +201,11 @@ const Login =()=>{
                         </div>
                     </form>
                     <div className="text-center text-sm text-gray-600">
-                        <p className="flex sm:flex-row flex-col">
+                        <p className="flex sm:flex-row flex-col mr-2">
                             <span>Don’t have an account?{""}</span>
                             <Link
                                 href="/register"
-                                className="sm:mt-0 mt-2 font-medium text-indigo-600 hover:text-indigo-500"
+                                className="px-2 sm:mt-0 mt-2 font-medium text-indigo-600 hover:text-indigo-500"
                             >
                                 Create account
                             </Link>
