@@ -109,7 +109,15 @@ const ProfileDetails = () => {
         <Image
           src="/assests/icons/logo.svg"
           alt="brandLogo"
+          className='sm:block hidden'
           width={185.5}
+          height={40}
+        />
+        <Image
+          src="/assests/icons/mobile-logo.svg"
+          alt="brandLogo"
+          className='sm:hidden block'
+          width={40}
           height={40}
         />
         <div className="flex items-center">
@@ -129,7 +137,7 @@ const ProfileDetails = () => {
               width={20}
               height={20}
             />{" "}
-            Profile Details
+           <span className='sm:hidden block'> Profile Details</span>
           </button>
         </div>
         <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[46px] w-[114px] border border-[#633CFF]">

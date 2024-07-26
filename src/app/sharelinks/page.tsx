@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 import { Input, Select, notification } from "antd";
 import React, { useState } from "react";
 
-import GitHubIcon from "../../../public/assests/icons/youtube.svg";
+import GitHubIcon from "../../../public/assests/icons/github.svg";
 import Link from "next/link";
 import LinkedInIcon from "../../../public/assests/icons/github.svg";
 import YouTubeIcon from "../../../public/assests/icons/linkedin.svg";
@@ -29,7 +29,7 @@ const CustomOptionLabel: React.FC<CustomOptionLabelProps> = ({
   <span style={{ display: "flex", alignItems: "center" }}>
         <Image
             src={icon}
-            alt={`${label} icon`} // Correct use of string interpolation
+            alt={`${label} icon`}
             style={{ marginRight: 8, width: 16, height: 16 }}
         />
         {label}
