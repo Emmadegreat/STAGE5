@@ -105,7 +105,7 @@ const ProfileDetails = () => {
 
   return (
     <div className="flex flex-col gap-9 p-[24px]">
-      <nav className="flex justify-between items-center px-[20px] bg-[#FFFFFF] rounded-xl text-[16px] font-[600] leading-[24px] h-[78px] sticky top-0 z-10">
+      <nav className="flex justify-between items-center px-[18px] sm:px-[20px] bg-[#FFFFFF] rounded-xl text-[16px] font-[600] leading-[24px] h-[78px] sticky top-0 z-10">
         <Image
           src="/assests/icons/logo.svg"
           alt="brandLogo"
@@ -121,27 +121,34 @@ const ProfileDetails = () => {
           height={40}
         />
         <div className="flex items-center">
-          <Link href="/sharelinks" className="rounded-lg h-[46px] w-[122px] flex gap-2 items-center justify-center text-[#737373]">
+          <Link href="/sharelinks" className="rounded-lg h-[38px] sm:h-[46px] w-[80px] sm:w-[122px] flex gap-2 items-center justify-center text-[#737373]">
             <Image
               src="/assests/icons/linkicon.svg"
               alt="link-icon"
               width={20}
               height={20}
             />
-            Links
+            <span className='sm:block hidden'> Link</span>
           </Link>
-          <button className="flex gap-2 items-center justify-center rounded-lg h-[46px] bg-[#EFEBFF] text-[#633CFF] w-[187px] hover:text-[#633CFF]">
+          <button className="flex gap-2 items-center justify-center rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[187px] bg-[#EFEBFF] text-[#633CFF] hover:text-[#633CFF]">
             <Image
               src="/assests/images/user.svg"
               alt="user-circle"
               width={20}
               height={20}
             />{" "}
-           <span className='sm:hidden block'> Profile Details</span>
+           <span className='sm:block hidden'> Profile Details</span>
           </button>
         </div>
-        <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[46px] w-[114px] border border-[#633CFF]">
-          Preview
+        <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
+        <Image
+          src="/assests/icons/mobile-preview.svg"
+          alt="user-circle"
+          className='sm:hidden block m-auto'
+          width={20}
+          height={20}
+        />{" "}
+          <span className='sm:block hidden'> Preview</span>
         </button>
       </nav>
 
@@ -198,36 +205,39 @@ const ProfileDetails = () => {
 
               <form onSubmit={handleUpdate} className="flex flex-col gap-10">
                 <div className='flex flex-col p-[40px] gap-10'>
-                  <div className="flex items-center p-5  bg-[#FAFAFA] rounded-xl w-full h-auto">
+                  <div className="flex sm:flex-row flex-col items-center p-5  bg-[#FAFAFA] rounded-xl w-full h-auto">
                     <p className="text-[#737373] text-[16px] font-normal w-[40%]">Profile picture</p>
-                    <div className="flex items-center gap-2 w-[60%] relative">
-                      <label htmlFor="profileImage" className="cursor-pointer flex flex-col items-center justify-center w-[65%] h-[193px] bg-[#EFEBFF] rounded-xl relative overflow-hidden">
-                        {profileImage && (
-                          <Image src={typeof profileImage === 'string' ? profileImage : ''} alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
-                        )}
-                        <div className={`absolute inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-[#EFEBFF] text-white ${profileImage ? '' : 'hidden'}`}>
-                          <Image src="/assests/images/phimage.svg" alt="Upload Icon" width={40} height={40} />
-                          <p className="text-[14px]">Change Image</p>
-                        </div>
-                        {!profileImage && (
-                          <div className="flex flex-col items-center justify-center">
-                            <Image src="images/pimage.svg" alt="Upload Icon" width={40} height={40} />
-                            <p className="text-[14px]">+ Upload Image</p>
+                    <div className='w-full py-4 m-auto'>
+                      <div className="flex items-center gap-2 w-full sm:w-[60%] relative">
+                        <label htmlFor="profileImage" className="cursor-pointer flex flex-col items-center justify-center w-[65%] h-[193px] bg-[#EFEBFF] rounded-xl relative overflow-hidden">
+                          {profileImage && (
+                            <Image src={typeof profileImage === 'string' ? profileImage : ''} alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
+                          )}
+                          <div className={`absolute inset-0 flex flex-col items-center justify-center bg-opacity-50 bg-[#EFEBFF] text-white ${profileImage ? '' : 'hidden'}`}>
+                            <Image src="/assests/images/phimage.svg" alt="Upload Icon" width={40} height={40} />
+                            <p className="text-[14px]">Change Image</p>
                           </div>
-                        )}
-                      </label>
+                          {!profileImage && (
+                            <div className="w-full flex flex-col items-center justify-center">
+                              <Image src="images/pimage.svg" alt="Upload Icon" width={40} height={40} />
+                              <p className="text-[14px]">+ Upload Image</p>
+                            </div>
+                          )}
+                        </label>
 
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleProfileImage}
-                        className="hidden"
-                        id="profileImage"
-                      />
-                      <p className="font-normal text-[12px] leading-[18px]">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleProfileImage}
+                          className="hidden"
+                          id="profileImage"
+                        />
+                      </div>
+
+                    </div>
+                    <p className="font-normal text-[12px] leading-[18px]">
                         Image must be below 1024x1024px. Use PNG or JPG format.
                       </p>
-                    </div>
                   </div>
 
                   <div className="flex flex-col gap-5 bg-[#FAFAFA] p-5 rounded-xl">

@@ -63,34 +63,50 @@ const ShareableLinks = () => {
           <Image
             src="/assests/icons/logo.svg"
             alt="brandLogo"
+            className='sm:block hidden'
             width={185.5}
             height={40}
           />
+          <Image
+            src="/assests/icons/mobile-logo.svg"
+            alt="brandLogo"
+            className='sm:hidden block'
+            width={40}
+            height={40}
+          />
           <div className="flex items-center">
-            <button className="bg-[#EFEBFF] rounded-lg h-[46px] w-[122px] flex gap-2 items-center justify-center text-[#633CFF]">
+            <button className="bg-[#EFEBFF] rounded-lg h-[38px] sm:h-[46px] w-[50px] sm:w-[122px] flex gap-2 items-center justify-center text-[#633CFF]">
               <Image
-                src="/assests/icons/link.svg"
+                src="/assests/icons/link1.svg"
+                className='block'
                 alt="link-icon"
                 width={20}
                 height={20}
               />
-              Links
+              <span className='sm:block hidden'> Link</span>
             </button>
             <Link
               href="/profile"
-              className="flex gap-2 items-center justify-center text-[#737373] rounded-lg h-[46px] w-[187px] hover:text-[#633CFF]"
+              className="flex gap-2 items-center justify-center text-[#737373] rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[187px] hover:text-[#633CFF]"
             >
               <Image
-                src="/assests/icons/user-circle.svg"
-                alt="user-circle"
-                width={20}
-                height={20}
-              />{" "}
-              Profile Details
+              src="/assests/icons/user-gray.svg"
+              alt="user-circle"
+              width={20}
+              height={20}
+            />{" "}
+           <span className='sm:block hidden'> Profile Details</span>
             </Link>
           </div>
-          <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[46px] w-[114px] border border-[#633CFF]">
-            <Link href="preview">Preview</Link>
+          <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
+            <Image
+              src="/assests/icons/mobile-preview.svg"
+              alt="user-circle"
+              className='sm:hidden block m-auto'
+              width={20}
+              height={20}
+            />{" "}
+            <span className='sm:block hidden'> Preview</span>
           </button>
         </nav>
 
