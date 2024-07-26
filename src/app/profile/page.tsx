@@ -130,7 +130,7 @@ const ProfileDetails = () => {
             />
             <span className='sm:block hidden'> Link</span>
           </Link>
-          <button className="flex gap-2 items-center justify-center rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[187px] bg-[#EFEBFF] text-[#633CFF] hover:text-[#633CFF]">
+          <button className="flex gap-2 items-center justify-center rounded-lg h-[36px] sm:h-[46px] w-[50px]  custom-medium:w-[150px] sm:w-[187px] bg-[#EFEBFF] text-[#633CFF] hover:text-[#633CFF]">
             <Image
               src="/assests/images/user.svg"
               alt="user-circle"
@@ -140,7 +140,7 @@ const ProfileDetails = () => {
            <span className='sm:block hidden'> Profile Details</span>
           </button>
         </div>
-        <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
+        <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg custom-medium:w-[80px] h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
         <Image
           src="/assests/icons/mobile-preview.svg"
           alt="user-circle"
@@ -153,7 +153,7 @@ const ProfileDetails = () => {
       </nav>
 
       <div className="flex items-center gap-10 w-[100%]">
-        <div className="hidden md:flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
+        <div className="hidden md:flex justify-center items-center md:w-[45%] bg-[#FFFFFF] h-[834px] rounded-xl">
           <div className="flex justify-center h-[631px]">
             <Image
               src="/assests/icons/frame1.svg"
@@ -191,7 +191,7 @@ const ProfileDetails = () => {
           </div>
         </div>
 
-        <div className="md:order-2 order-1 w-[100%] md:w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
+        <div className="md:order-2 order-1 w-[100%] md:w-[55%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
           <div className="h-[739px] flex flex-col gap-8">
             <div className="flex flex-col px-[40px] py-3 gap-5">
               <h1 className="text-[#333333] leading-[48px] text-[32px] font-[700]">

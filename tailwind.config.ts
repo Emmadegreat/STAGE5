@@ -21,7 +21,10 @@ const config: Config = {
 			},
 			boxShadow: {
 				custom: "0px 0px 32px 0px rgba(99, 60, 255, 0.25)"
-			}
+      },
+      screens: {
+        'custom-medium': {'min': '640px', 'max': '768px'}
+      },
 
 
     },

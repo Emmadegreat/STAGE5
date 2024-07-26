@@ -75,7 +75,7 @@ const ShareableLinks = () => {
             height={40}
           />
           <div className="flex items-center">
-            <button className="bg-[#EFEBFF] rounded-lg h-[38px] sm:h-[46px] w-[50px] sm:w-[122px] flex gap-2 items-center justify-center text-[#633CFF]">
+            <button className="bg-[#EFEBFF] rounded-lg h-[38px] sm:h-[46px] w-[50px] custom-medium:w-[80px] sm:w-[122px] md flex gap-2 items-center justify-center text-[#633CFF]">
               <Image
                 src="/assests/icons/link1.svg"
                 className='block'
@@ -98,7 +98,7 @@ const ShareableLinks = () => {
            <span className='sm:block hidden'> Profile Details</span>
             </Link>
           </div>
-          <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
+          <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[36px] sm:h-[46px] custom-medium:w-[80px] w-[50px] sm:w-[114px] border border-[#633CFF]">
             <Image
               src="/assests/icons/mobile-preview.svg"
               alt="user-circle"
@@ -111,7 +111,7 @@ const ShareableLinks = () => {
         </nav>
 
         <div className="flex md:flex-row flex-col items-center gap-10 w-[100%]">
-          <div className="md:order-1 order-2 hidden md:flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
+          <div className="md:order-1 order-2 hidden md:flex justify-center items-center md:w-[48%] bg-[#FFFFFF] h-[834px] rounded-xl">
             <div className="flex justify-center h-[631px]">
               <Image
                 src="/assests/icons/frame1.svg"
@@ -167,7 +167,7 @@ const ShareableLinks = () => {
             </div>
           </div>
 
-          <div className="md:order-2 order-1 w-[100%] md:w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
+          <div className="md:order-2 order-1 w-[100%] md:w-[52%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
             <div className="h-[100%] p-[40px] flex flex-col gap-8 overflow-y-scroll">
               <div className="flex flex-col">
                 <h1 className="text-[#333333] leading-[48px] text-[26px] sm:text-[32px] font-[700]">
