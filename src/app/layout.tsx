@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-         <link rel="icon" href="https://res.cloudinary.com/dbnxbly1r/image/upload/v1721974423/general/logo_r6toq2.svg" />
+         <link rel="icon" href="https://res.cloudinary.com/dbnxbly1r/image/upload/v1722110403/general/devlinks_dbrksv.png"/>
      </head>
       <body className={inter.className}>
         {children}
