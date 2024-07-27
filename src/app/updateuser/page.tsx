@@ -1,10 +1,9 @@
 'use client'
 
 import { auth, db } from '../../../firebase';
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore"; //
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { useEffect, useState } from 'react';
-
 import { toast } from 'react-toastify';
 
 const UpdateUser = () => {
@@ -15,26 +14,31 @@ const UpdateUser = () => {
     const [profileImage, setProfileImage] = useState<File | null>(null);
 
     const storage = getStorage();
+
     useEffect(() => {
         const fetchUserData = async () => {
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-            const userRef = doc(db, 'users', currentUser.uid);
-            const userDoc = await getDoc(userRef);
-            if (userDoc.exists()) {
-                setUser(userDoc.data());
-                setFirstname(userDoc.data().firstname);
-                setLastname(userDoc.data().lastname);
-                setEmail(userDoc.data().email);
+            const currentUser = auth.currentUser;
+            if (currentUser) {
+                const userRef = doc(db, 'users', currentUser.uid);
+                const userDoc = await getDoc(userRef);
+                if (userDoc.exists()) {
+                    setUser(userDoc.data());
+                    setFirstname(userDoc.data().firstname);
+                    setLastname(userDoc.data().lastname);
+                    setEmail(userDoc.data().email);
+                } else {
+                    toast.error("User data not found");
+                }
+            } else {
+                toast.error("User not authenticated");
             }
-        }
-    };
+        };
         fetchUserData();
     }, []);
 
     const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
-        setProfileImage(e.target.files[0]);
+            setProfileImage(e.target.files[0]);
         }
     };
 
@@ -49,12 +53,12 @@ const UpdateUser = () => {
                 const updates: any = {};
                 if (firstname) updates.firstname = firstname;
                 if (lastname) updates.lastname = lastname;
+                if (email) updates.email = email; // Update email as well
 
                 await updateDoc(userRef, updates);
 
-
                 if (profileImage) {
-                // Upload the image to Firebase Storage and get the download URL
+                    // Upload the image to Firebase Storage and get the download URL
                     const storageRef = ref(storage, `profileImages/${currentUser.uid}`);
                     await uploadBytes(storageRef, profileImage);
                     const downloadURL = await getDownloadURL(storageRef);
@@ -69,9 +73,9 @@ const UpdateUser = () => {
         }
     };
 
-    if (!user) {
-        return <p>Loading...</p>;
-    }
+    // if (!user) {
+    //     return <p>Loading...</p>;
+    // }
 
     return (
         <form onSubmit={handleUpdate}>
@@ -87,10 +91,19 @@ const UpdateUser = () => {
             <div>
                 <label>Last Name:</label>
                 <input
-                type="text"
-                value={lastname}
-                onChange={(e) => setLastname(e.target.value)}
-                required
+                    type="text"
+                    value={lastname}
+                    onChange={(e) => setLastname(e.target.value)} // Corrected: setLastname instead of setEmail
+                    required
+                />
+            </div>
+            <div>
+                <label>Email:</label>
+                <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)} // Corrected: setEmail instead of setLastname
+                    required
                 />
             </div>
             <div>
