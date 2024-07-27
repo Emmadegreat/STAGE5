@@ -28,7 +28,7 @@ const ProfileDetails = () => {
         const userDoc = await getDoc(userRef);
         if (userDoc.exists()) {
           const userData = userDoc.data();
-          console.log('user data: ', userData.data());
+          //console.log('user data: ', userData.data());
 
           setUser(userData);
           setFirstName(userData.firstname);
@@ -140,7 +140,8 @@ const ProfileDetails = () => {
             <span className='sm:block hidden'> Profile Details</span>
           </button>
         </div>
-        <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg custom-medium:w-[80px] h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
+        <Link href="/preview" className="text-center py-2 items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg custom-medium:w-[80px]
+          h-[36px] sm:h-[46px] w-[50px] sm:w-[114px] border border-[#633CFF]">
           <Image
             src="/assests/icons/mobile-preview.svg"
             alt="user-circle"
@@ -149,7 +150,7 @@ const ProfileDetails = () => {
             height={20}
           />{" "}
           <span className='sm:block hidden'> Preview</span>
-        </button>
+        </Link>
       </nav>
 
       <div className="flex items-center gap-10 w-[100%]">
